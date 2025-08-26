@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفا سافت‌ویر - یادگیری آسان و مقرون‌به‌صرفه</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'vazir': ['Vazir', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Vazir:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Vazir', sans-serif; }
+        
+        /* Advanced Gradients */
+        .gradient-bg { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g"><stop offset="20%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="50%" stop-color="%23ffffff" stop-opacity="0.05"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><rect width="100" height="100" fill="url(%23g)"/></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Advanced Card Animations */
+        .card-hover { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .card-hover:hover::before {
+            left: 100%;
+        }
+        .card-hover:hover { 
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        /* Glassmorphism Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Advanced Button Styles */
+        .btn-gradient {
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+            background-size: 300% 300%;
+            animation: gradientShift 3s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .btn-gradient:hover::before {
+            left: 100%;
+        }
+        
+        /* Floating Animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        /* Pulse Animation */
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+        
+        /* Bounce Animation */
+        .bounce-in {
+            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        /* Fade In Animation */
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        
+        /* Slide In Animations */
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+        .slide-in-up {
+            animation: slideInUp 0.8s ease-out;
+        }
+        
+        /* Text Gradient */
+        .animated-gradient-text {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+        }
+        
+        /* Admin Panel Styles */
+        .admin-panel { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.9); 
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .admin-content { 
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            margin: 2% auto; 
+            padding: 30px; 
+            width: 90%; 
+            max-width: 800px; 
+            border-radius: 20px; 
+            max-height: 90vh; 
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        /* Floating Admin Button */
+        .floating-admin { 
+            position: fixed; 
+            bottom: 30px; 
+            left: 30px; 
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white; 
+            padding: 15px 20px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            z-index: 100; 
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            animation: floatingAdmin 3s ease-in-out infinite;
+        }
+        .floating-admin:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        
+        /* Keyframe Animations */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes floatingAdmin {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(1deg); }
+            75% { transform: translateY(-3px) rotate(-1deg); }
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.8); }
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3) translateY(-50px); opacity: 0; }
+            50% { transform: scale(1.05) translateY(-25px); }
+            70% { transform: scale(0.9) translateY(-10px); }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(100px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(-5px) rotate(-1deg); }
+        }
+        
+        /* Particle Background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: particleFloat 15s infinite linear;
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Advanced Hover Effects */
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        /* Neon Glow Effect */
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.5), 0 0 20px rgba(102, 126, 234, 0.3), 0 0 30px rgba(102, 126, 234, 0.2);
+        }
+        
+        /* 3D Card Effect */
+        .card-3d {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(5deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Floating Admin Button -->
+    <div class="floating-admin shadow-lg hover:shadow-xl transition-all duration-300" onclick="showAdminLogin()" title="پنل مدیریت - کلیک کنید">
+        <div class="flex items-center space-x-2 space-x-reverse">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <span class="text-xs font-semibold">ادمین</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-purple-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="text-2xl font-bold animated-gradient-text neon-glow">الفا سافت‌ویر</div>
+                </div>
+                <div class="hidden md:flex space-x-8 space-x-reverse">
+                    <a href="#home" class="text-gray-700 hover:text-purple-600 transition-all duration-300 hover:scale-110 relative group">
+                        خانه
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#about" class="text-gray-700 hover:text-purple-600 transition-all duration-300 hover:scale-110 relative group">
+                        درباره ما
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#courses" class="text-gray-700 hover:text-purple-600 transition-all duration-300 hover:scale-110 relative group">
+                        دوره‌ها
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#order" class="text-gray-700 hover:text-purple-600 transition-all duration-300 hover:scale-110 relative group">
+                        سفارش
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#contact" class="text-gray-700 hover:text-purple-600 transition-all duration-300 hover:scale-110 relative group">
+                        تماس
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+                <button class="md:hidden" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="mobileMenu" class="hidden md:hidden pb-4">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-purple-600">خانه</a>
+                <a href="#about" class="block py-2 text-gray-700 hover:text-purple-600">درباره ما</a>
+                <a href="#courses" class="block py-2 text-gray-700 hover:text-purple-600">دوره‌ها</a>
+                <a href="#order" class="block py-2 text-gray-700 hover:text-purple-600">سفارش</a>
+                <a href="#contact" class="block py-2 text-gray-700 hover:text-purple-600">تماس</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white py-20 relative overflow-hidden">
+        <div class="particles">
+            <div class="particle" style="left: 10%; width: 4px; height: 4px; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 20%; width: 6px; height: 6px; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 30%; width: 3px; height: 3px; animation-delay: 4s;"></div>
+            <div class="particle" style="left: 40%; width: 5px; height: 5px; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 50%; width: 4px; height: 4px; animation-delay: 3s;"></div>
+            <div class="particle" style="left: 60%; width: 6px; height: 6px; animation-delay: 5s;"></div>
+            <div class="particle" style="left: 70%; width: 3px; height: 3px; animation-delay: 2.5s;"></div>
+            <div class="particle" style="left: 80%; width: 5px; height: 5px; animation-delay: 4.5s;"></div>
+            <div class="particle" style="left: 90%; width: 4px; height: 4px; animation-delay: 1.5s;"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 bounce-in neon-glow">یادگیری آسان، متنوع و مقرون‌به‌صرفه</h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90 fade-in floating">بیش از ۵۰ پکیج آموزشی در حوزه‌های مختلف</p>
+            <div class="space-x-4 space-x-reverse slide-in-up">
+                <a href="#courses" class="btn-gradient text-white px-8 py-4 rounded-full font-semibold hover:scale-105 transition-all duration-300 inline-block shadow-lg pulse-glow">مشاهده دوره‌ها</a>
+                <a href="#contact" class="glass-effect border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-all duration-300 inline-block hover-lift">ارتباط با ما</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-20 bg-gradient-to-br from-white to-blue-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16 animated-gradient-text bounce-in">ویژگی‌های کلیدی</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center card-hover card-3d bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-blue-100 slide-in-left">
+                    <div class="text-4xl mb-4 floating">🌐</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">دسترسی آسان و آنلاین</h3>
+                    <p class="text-gray-600">در هر زمان و مکان به دوره‌ها دسترسی داشته باشید</p>
+                </div>
+                <div class="text-center card-hover card-3d bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-blue-100 slide-in-up">
+                    <div class="text-4xl mb-4 floating" style="animation-delay: 0.5s;">💰</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">قیمت مناسب و اقتصادی</h3>
+                    <p class="text-gray-600">آموزش باکیفیت با قیمت‌های مقرون‌به‌صرفه</p>
+                </div>
+                <div class="text-center card-hover card-3d bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-blue-100 slide-in-up">
+                    <div class="text-4xl mb-4 floating" style="animation-delay: 1s;">👨‍🏫</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">آموزش توسط متخصصین</h3>
+                    <p class="text-gray-600">مدرسین حرفه‌ای و با تجربه در هر حوزه</p>
+                </div>
+                <div class="text-center card-hover card-3d bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-blue-100 slide-in-right">
+                    <div class="text-4xl mb-4 floating" style="animation-delay: 1.5s;">📚</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">تنوع بیش از ۵۰ پکیج</h3>
+                    <p class="text-gray-600">حوزه‌های مختلف آموزشی برای همه سلیقه‌ها</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about" class="py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6 animated-gradient-text bounce-in">درباره ما</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-600 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed fade-in">
+                    الفا سافت‌ویر یک پلتفرم جامع آموزشی است که با هدف ایجاد دسترسی آسان و ارزان به آموزش‌های باکیفیت برای همه افراد جامعه تأسیس شده است.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-xl card-hover border border-purple-100 slide-in-left">
+                    <div class="text-3xl mb-4 floating">💻</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">کامپیوتر و فناوری</h3>
+                    <p class="text-gray-600">برنامه‌نویسی، شبکه، طراحی وب، امنیت سایبری</p>
+                </div>
+                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-xl card-hover border border-purple-100 slide-in-up">
+                    <div class="text-3xl mb-4 floating" style="animation-delay: 0.3s;">🧠</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">روانشناسی و توسعه فردی</h3>
+                    <p class="text-gray-600">مدیریت استرس، رشد فردی، مهارت‌های ارتباطی</p>
+                </div>
+                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-xl card-hover border border-purple-100 slide-in-right">
+                    <div class="text-3xl mb-4 floating" style="animation-delay: 0.6s;">📚</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">زبان‌های خارجی</h3>
+                    <p class="text-gray-600">انگلیسی، آلمانی، فرانسوی، ترکی</p>
+                </div>
+                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-xl card-hover border border-purple-100 slide-in-left">
+                    <div class="text-3xl mb-4 floating" style="animation-delay: 0.9s;">🎨</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">هنر و مهارت‌های خلاقانه</h3>
+                    <p class="text-gray-600">رسامی، طراحی دیجیتال، عکاسی</p>
+                </div>
+                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-xl card-hover border border-purple-100 slide-in-up">
+                    <div class="text-3xl mb-4 floating" style="animation-delay: 1.2s;">👗</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">مهارت‌های کاربردی</h3>
+                    <p class="text-gray-600">خیاطی، دوخت و دوز، طراحی لباس</p>
+                </div>
+                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-xl card-hover border border-purple-100 slide-in-right">
+                    <div class="text-3xl mb-4 floating" style="animation-delay: 1.5s;">🎯</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">چشم‌انداز ۲۰۴۰</h3>
+                    <p class="text-gray-600">بزرگ‌ترین مرکز آموزش دیجیتال فارسی‌زبان</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses -->
+    <section id="courses" class="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-400/10 to-purple-400/10"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 animated-gradient-text bounce-in neon-glow">دوره‌ها و پکیج‌ها</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto fade-in">مجموعه‌ای کامل از دوره‌های آموزشی در حوزه‌های مختلف برای رشد و پیشرفت شما</p>
+            </div>
+            <div id="coursesList" class="space-y-16">
+                <!-- Courses will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form -->
+    <section id="order" class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16 animated-gradient-text bounce-in">فرم سفارش آنلاین</h2>
+            <div class="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-blue-100 card-hover">
+                <form id="orderForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="slide-in-left">
+                            <label class="block text-gray-700 font-semibold mb-2">نام و نام خانوادگی</label>
+                            <input type="text" id="fullName" class="w-full p-3 border-2 border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-300" required>
+                        </div>
+                        <div class="slide-in-right">
+                            <label class="block text-gray-700 font-semibold mb-2">ایمیل</label>
+                            <input type="email" id="email" class="w-full p-3 border-2 border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-300" required>
+                        </div>
+                    </div>
+                    <div class="slide-in-up">
+                        <label class="block text-gray-700 font-semibold mb-2">شماره واتساپ</label>
+                        <input type="tel" id="whatsapp" class="w-full p-3 border-2 border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-300" required>
+                    </div>
+                    <div class="fade-in">
+                        <label class="block text-gray-700 font-semibold mb-2">انتخاب پکیج‌ها (می‌توانید چند مورد انتخاب کنید)</label>
+                        <div id="packageSelection" class="grid md:grid-cols-2 gap-3 max-h-60 overflow-y-auto border-2 border-blue-200 rounded-xl p-4 bg-gradient-to-br from-blue-50 to-purple-50">
+                            <!-- Packages will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="slide-in-up">
+                        <label class="block text-gray-700 font-semibold mb-2">پیام یا توضیح اضافی</label>
+                        <textarea id="message" rows="4" class="w-full p-3 border-2 border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-blue-300"></textarea>
+                    </div>
+                    <button type="submit" class="w-full btn-gradient text-white py-4 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg pulse-glow">
+                        ارسال سفارش به واتساپ
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-white to-purple-50">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16 animated-gradient-text bounce-in">تماس با ما</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="slide-in-left">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">اطلاعات تماس</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 space-x-reverse p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover-lift border border-purple-100">
+                            <div class="text-2xl floating">📱</div>
+                            <div>
+                                <p class="font-semibold text-gray-800">واتساپ</p>
+                                <p class="text-gray-600">0787631730</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 space-x-reverse p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover-lift border border-purple-100">
+                            <div class="text-2xl floating" style="animation-delay: 0.5s;">📧</div>
+                            <div>
+                                <p class="font-semibold text-gray-800">ایمیل</p>
+                                <p class="text-gray-600">ramazanabrahimi9@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-in-right">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">فرم تماس</h3>
+                    <form id="contactForm" class="space-y-4">
+                        <input type="text" id="contactName" placeholder="نام" class="w-full p-3 border-2 border-purple-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 hover:border-purple-300" required>
+                        <input type="email" id="contactEmail" placeholder="ایمیل" class="w-full p-3 border-2 border-purple-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 hover:border-purple-300" required>
+                        <textarea id="contactMessage" rows="4" placeholder="پیام" class="w-full p-3 border-2 border-purple-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 hover:border-purple-300" required></textarea>
+                        <button type="submit" class="w-full btn-gradient text-white py-3 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg">ارسال پیام</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white py-12 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-purple-900/20 to-blue-900/20"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="slide-in-left">
+                    <h3 class="text-2xl font-bold mb-4 animated-gradient-text">الفا سافت‌ویر</h3>
+                    <p class="text-gray-300">یادگیری آسان، متنوع و مقرون‌به‌صرفه</p>
+                </div>
+                <div class="slide-in-up">
+                    <h4 class="text-lg font-semibold mb-4">لینک‌های سریع</h4>
+                    <div class="space-y-2">
+                        <a href="#home" class="block text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">خانه</a>
+                        <a href="#about" class="block text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">درباره ما</a>
+                        <a href="#courses" class="block text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">دوره‌ها</a>
+                        <a href="#order" class="block text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">سفارش</a>
+                        <a href="#contact" class="block text-gray-300 hover:text-white transition-all duration-300 hover:translate-x-2">تماس</a>
+                    </div>
+                </div>
+                <div class="slide-in-right">
+                    <h4 class="text-lg font-semibold mb-4">تماس با ما</h4>
+                    <p class="text-gray-300 flex items-center space-x-2 space-x-reverse mb-2">
+                        <span class="floating">📱</span>
+                        <span>0787631730</span>
+                    </p>
+                    <p class="text-gray-300 flex items-center space-x-2 space-x-reverse">
+                        <span class="floating" style="animation-delay: 0.5s;">📧</span>
+                        <span>ramazanabrahimi9@gmail.com</span>
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300 fade-in">© 2025 الفا سافت‌ویر - تمامی حقوق محفوظ است</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="admin-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold animated-gradient-text">پنل مدیریت</h2>
+                <button onclick="closeAdmin()" class="text-red-500 hover:text-red-700 hover:scale-110 transition-all duration-300">✕</button>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-4">مدیریت دوره‌ها</h3>
+                <div class="mb-4 space-y-3">
+                    <input type="text" id="courseTitle" placeholder="عنوان دوره" class="w-full p-3 border-2 border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                    <input type="text" id="courseCategory" placeholder="دسته‌بندی" class="w-full p-3 border-2 border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                    <textarea id="courseDescription" placeholder="توضیحات" class="w-full p-3 border-2 border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 transition-all duration-300" rows="3"></textarea>
+                    <input type="text" id="coursePrice" placeholder="قیمت" class="w-full p-3 border-2 border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                    <button onclick="addCourse()" class="btn-gradient text-white px-6 py-3 rounded-xl hover:scale-105 transition-all duration-300 shadow-lg">افزودن دوره</button>
+                </div>
+                
+                <div id="adminCoursesList" class="space-y-3 max-h-60 overflow-y-auto">
+                    <!-- Admin courses list will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLogin" class="admin-panel">
+        <div class="admin-content max-w-md">
+            <h2 class="text-2xl font-bold mb-6 text-center animated-gradient-text">ورود مدیر</h2>
+            <input type="password" id="adminPassword" placeholder="رمز عبور" class="w-full p-3 border-2 border-purple-200 rounded-xl mb-4 focus:ring-2 focus:ring-purple-500 transition-all duration-300">
+            <div class="flex space-x-4 space-x-reverse">
+                <button onclick="checkAdminPassword()" class="flex-1 btn-gradient text-white py-3 rounded-xl hover:scale-105 transition-all duration-300">ورود</button>
+                <button onclick="closeAdminLogin()" class="flex-1 bg-gray-500 text-white py-3 rounded-xl hover:bg-gray-600 hover:scale-105 transition-all duration-300">انصراف</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data
+        let courses = [
+            {
+                id: 1,
+                category: "💻 کامپیوتر و فناوری",
+                title: "برنامه‌نویسی Python",
+                description: "آموزش کامل Python از مبتدی تا پیشرفته",
+                price: "2,500 افغانی"
+            },
+            {
+                id: 2,
+                category: "💻 کامپیوتر و فناوری",
+                title: "طراحی وب",
+                description: "HTML, CSS, JavaScript و React",
+                price: "3,800 افغانی"
+            },
+            {
+                id: 3,
+                category: "🧠 روانشناسی و توسعه فردی",
+                title: "مهارت‌های ارتباطی",
+                description: "بهبود روابط شخصی و حرفه‌ای",
+                price: "1,500 افغانی"
+            },
+            {
+                id: 4,
+                category: "📚 زبان‌های خارجی",
+                title: "انگلیسی مکالمه",
+                description: "انگلیسی عملی برای مکالمه روزمره",
+                price: "2,000 افغانی"
+            },
+            {
+                id: 5,
+                category: "🎨 هنر و مهارت‌های خلاقانه",
+                title: "طراحی گرافیک",
+                description: "Photoshop و Illustrator",
+                price: "3,000 افغانی"
+            },
+            {
+                id: 6,
+                category: "👗 مهارت‌های کاربردی",
+                title: "خیاطی مدرن",
+                description: "طراحی و دوخت لباس‌های مدرن",
+                price: "2,250 افغانی"
+            }
+        ];
+
+        // Load courses
+        function loadCourses() {
+            const coursesList = document.getElementById('coursesList');
+            const packageSelection = document.getElementById('packageSelection');
+            
+            // Group courses by category
+            const groupedCourses = courses.reduce((acc, course) => {
+                if (!acc[course.category]) {
+                    acc[course.category] = [];
+                }
+                acc[course.category].push(course);
+                return acc;
+            }, {});
+
+            coursesList.innerHTML = '';
+            packageSelection.innerHTML = '';
+
+            Object.keys(groupedCourses).forEach((category, categoryIndex) => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.innerHTML = `
+                    <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-blue-100 card-hover slide-in-up" style="animation-delay: ${categoryIndex * 0.2}s;">
+                        <div class="text-center mb-8">
+                            <h3 class="text-3xl font-bold animated-gradient-text mb-3 neon-glow">${category}</h3>
+                            <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
+                        </div>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            ${groupedCourses[category].map((course, courseIndex) => `
+                                <div class="group relative bg-gradient-to-br from-white via-blue-50 to-purple-50 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-blue-100 hover:border-purple-300 card-hover card-3d slide-in-up" style="animation-delay: ${(categoryIndex * 0.2) + (courseIndex * 0.1)}s;">
+                                    <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-bl-3xl rounded-tr-2xl opacity-10 group-hover:opacity-20 transition-all duration-300"></div>
+                                    <div class="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-pulse"></div>
+                                    <div class="relative z-10">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <div class="text-3xl floating" style="animation-delay: ${courseIndex * 0.3}s;">${category.split(' ')[0]}</div>
+                                            <div class="bg-gradient-to-r from-green-400 to-blue-500 text-white text-xs px-3 py-1 rounded-full font-semibold shadow-lg pulse-glow">جدید</div>
+                                        </div>
+                                        <h4 class="text-xl font-bold mb-3 text-gray-800 group-hover:text-purple-700 transition-colors duration-300">${course.title}</h4>
+                                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">${course.description}</p>
+                                        <div class="flex items-center justify-between">
+                                            <div class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 font-bold text-lg">${course.price}</div>
+                                            <button class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-xl">
+                                                مشاهده جزئیات
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                coursesList.appendChild(categoryDiv);
+
+                // Add to package selection
+                groupedCourses[category].forEach(course => {
+                    const checkbox = document.createElement('div');
+                    checkbox.innerHTML = `
+                        <label class="flex items-center space-x-2 space-x-reverse cursor-pointer p-2 rounded-lg hover:bg-white/50 transition-all duration-300">
+                            <input type="checkbox" name="packages" value="${course.title}" class="text-purple-600 rounded focus:ring-purple-500">
+                            <span class="text-sm font-medium">${course.title} - ${course.price}</span>
+                        </label>
+                    `;
+                    packageSelection.appendChild(checkbox);
+                });
+            });
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Order form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const message = document.getElementById('message').value;
+            
+            const selectedPackages = Array.from(document.querySelectorAll('input[name="packages"]:checked'))
+                .map(checkbox => checkbox.value);
+            
+            if (selectedPackages.length === 0) {
+                alert('لطفاً حداقل یک پکیج انتخاب کنید');
+                return;
+            }
+            
+            const orderText = `سلام! سفارش جدید:
+نام: ${fullName}
+ایمیل: ${email}
+واتساپ: ${whatsapp}
+پکیج‌های انتخابی:
+${selectedPackages.map(pkg => `- ${pkg}`).join('\n')}
+${message ? `\nپیام: ${message}` : ''}`;
+            
+            const whatsappUrl = `https://wa.me/0787631730?text=${encodeURIComponent(orderText)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            const contactText = `سلام! پیام جدید:
+نام: ${name}
+ایمیل: ${email}
+پیام: ${message}`;
+            
+            const whatsappUrl = `https://wa.me/0787631730?text=${encodeURIComponent(contactText)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            // Reset form
+            this.reset();
+            alert('پیام شما ارسال شد!');
+        });
+
+        // Admin functions
+        function showAdminLogin() {
+            document.getElementById('adminLogin').style.display = 'block';
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+        }
+
+        function checkAdminPassword() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === 'admin88888888') {
+                closeAdminLogin();
+                showAdmin();
+            } else {
+                alert('رمز عبور اشتباه است');
+            }
+        }
+
+        function showAdmin() {
+            document.getElementById('adminPanel').style.display = 'block';
+            loadAdminCourses();
+        }
+
+        function closeAdmin() {
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+
+        function loadAdminCourses() {
+            const adminCoursesList = document.getElementById('adminCoursesList');
+            adminCoursesList.innerHTML = courses.map(course => `
+                <div class="border-2 border-blue-100 p-4 rounded-xl bg-gradient-to-r from-white to-blue-50 hover:shadow-lg transition-all duration-300">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-800">${course.title}</h4>
+                            <p class="text-sm text-gray-600">${course.category}</p>
+                            <p class="text-sm text-gray-700">${course.description}</p>
+                            <p class="text-sm font-bold text-purple-600">${course.price}</p>
+                        </div>
+                        <div class="flex space-x-2 space-x-reverse">
+                            <button onclick="editCourse(${course.id})" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-lg text-xs hover:from-blue-600 hover:to-blue-700 transition-all duration-300 hover:scale-105">ویرایش</button>
+                            <button onclick="deleteCourse(${course.id})" class="bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-lg text-xs hover:from-red-600 hover:to-red-700 transition-all duration-300 hover:scale-105">حذف</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addCourse() {
+            const title = document.getElementById('courseTitle').value;
+            const category = document.getElementById('courseCategory').value;
+            const description = document.getElementById('courseDescription').value;
+            const price = document.getElementById('coursePrice').value;
+            
+            if (!title || !category || !description || !price) {
+                alert('لطفاً همه فیلدها را پر کنید');
+                return;
+            }
+            
+            const newCourse = {
+                id: Math.max(...courses.map(c => c.id)) + 1,
+                title,
+                category,
+                description,
+                price
+            };
+            
+            courses.push(newCourse);
+            loadCourses();
+            loadAdminCourses();
+            
+            // Clear form
+            document.getElementById('courseTitle').value = '';
+            document.getElementById('courseCategory').value = '';
+            document.getElementById('courseDescription').value = '';
+            document.getElementById('coursePrice').value = '';
+            
+            alert('دوره با موفقیت اضافه شد');
+        }
+
+        function editCourse(id) {
+            const course = courses.find(c => c.id === id);
+            if (course) {
+                const newTitle = prompt('عنوان جدید:', course.title);
+                const newCategory = prompt('دسته‌بندی جدید:', course.category);
+                const newDescription = prompt('توضیحات جدید:', course.description);
+                const newPrice = prompt('قیمت جدید:', course.price);
+                
+                if (newTitle && newCategory && newDescription && newPrice) {
+                    course.title = newTitle;
+                    course.category = newCategory;
+                    course.description = newDescription;
+                    course.price = newPrice;
+                    
+                    loadCourses();
+                    loadAdminCourses();
+                    alert('دوره با موفقیت ویرایش شد');
+                }
+            }
+        }
+
+        function deleteCourse(id) {
+            if (confirm('آیا مطمئن هستید که می‌خواهید این دوره را حذف کنید؟')) {
+                courses = courses.filter(c => c.id !== id);
+                loadCourses();
+                loadAdminCourses();
+                alert('دوره با موفقیت حذف شد');
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCourses();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975192e0375dc8f4',t:'MTc1NjE5MjkwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
